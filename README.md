@@ -7,11 +7,11 @@ Designed as an educational tool to support the learning of graph theory.
 - Multiple arcs
 - Graphical/Matrix/Arc list views
 - A range of interactivly-explained graph algorithms:
--- Dijkstra's shortest path algorithm
--- Kruskal's MST algorithm
--- Prim's MST algorithm
--- Chinese postman(CPP) route inspection algorithm
--- Algorithms for TSP lower bound estimation
+    - Dijkstra's shortest path algorithm
+    - Kruskal's MST algorithm
+    - Prim's MST algorithm
+    - Chinese postman(CPP) route inspection algorithm
+    - Algorithms for TSP lower bound estimation
 - Graph statistics
 - Support for multiple arcs and self-loops
 
