@@ -443,7 +443,7 @@ class Menus(Frame):
 
                 #tempLbls
                 tempLbls = myDj.getNode(i).getTempLbls()
-                tempLbls = map(str,tempLbls)
+                tempLbls = list(map(str,tempLbls))
                 tempLbls = "  ".join(tempLbls)
 
                 draw.text((x,iC[1]+93),str( tempLbls),fill=colors["black"],font=tFont)
@@ -712,7 +712,7 @@ class aboutDialog(Toplevel):
         #Content:
         l1 = Label(self,text=PROGRAM_NAME,font=("Helvetica", 16))
         l1.pack()
-        l2 = Label(self,text=unichr(169)+" 2014 T. Hudson")
+        l2 = Label(self,text=chr(169)+" 2014 T. Hudson")
         l2.pack()
         l3 = Label(self,text="V"+VERSION)
         l3.pack()
@@ -1050,7 +1050,7 @@ class StatusBar(Frame):
 class descBox(Frame):
     def __init__(self, master):
         Frame.__init__(self, master)
-        self.canvas = Canvas(self, border=1, relief=SUNKEN, width=600,height=50,bg="grey")
+        self.canvas = Canvas(self, border=1, relief=SUNKEN, width=600,height=50,bg="#CCC")
         self.canvas.pack()
         self.step = self.canvas.create_text(5,5,font=("Arial",9,"bold"),text="STEP 1",anchor="nw")
         self.desc = self.canvas.create_text(300,25,text="")
@@ -2084,7 +2084,7 @@ def drawDj(node=None):
 
         #tempLbls
         tempLbls = myDj.getNode(node).getTempLbls()
-        tempLbls = map(str,tempLbls)
+        tempLbls = list(map(str,tempLbls))
         tempLbls = "  ".join(tempLbls)
 
 
