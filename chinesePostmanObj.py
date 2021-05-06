@@ -1,6 +1,6 @@
 from djikstraObj import *
 from dfsObj import *
-import cPickle as pickle
+import pickle
 
 
 class cPostman(object):

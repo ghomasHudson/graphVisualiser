@@ -1,5 +1,5 @@
 import random
-import tkMessageBox
+from tkinter import messagebox as tkMessageBox
 
 class nearestN(object):
     def __init__(self,graph):

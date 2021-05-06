@@ -309,54 +309,54 @@ class graph(object):
 
 #TESTING
 if __name__ == "__main__":
-    print "TESTING"
+    print("TESTING")
     myGraph = graph()
-    print "1.BLANK GRAPH"
-    print myGraph
-    print
-    print "2.ADD A NODE"
-    print "(adds 2 nodes at (1,2) and (3,4))"
+    print("1.BLANK GRAPH")
+    print(myGraph)
+    print()
+    print("2.ADD A NODE")
+    print("(adds 2 nodes at (1,2) and (3,4))")
     myGraph.addNode(1,2)
     myGraph.addNode(3,4)
-    print myGraph
-    print
-    print "3.DELETE A NODE"
-    print "3.1. by index:"
+    print(myGraph)
+    print()
+    print("3.DELETE A NODE")
+    print("3.1. by index:")
     myGraph.delNode(1)
-    print myGraph
-    print "3.2. by coords:"
+    print(myGraph)
+    print("3.2. by coords:")
     myGraph.delNode(1,2)
-    print
-    print "4.SET AN ARC"
+    print()
+    print("4.SET AN ARC")
     myGraph = graph()
     myGraph.addNode(1,2)
     myGraph.addNode(3,4)
     myGraph.setArc(0,1,9)
-    print "4.1",myGraph.gArray[0][1] == 9 and myGraph.gArray[1][0] == 9
+    print("4.1",myGraph.gArray[0][1] == 9 and myGraph.gArray[1][0] == 9)
     myGraph = graph()
     myGraph.addNode(1,2)
     myGraph.addNode(3,4)
     myGraph.setArc(0,1,9,True)
-    print "4.2",myGraph.gArray[0][1] == 9 and not myGraph.gArray[1][0] == 9
+    print("4.2",myGraph.gArray[0][1] == 9 and not myGraph.gArray[1][0] == 9)
 
-    print "5.GET COORDS"
+    print("5.GET COORDS")
     myGraph = graph()
     myGraph.addNode(1,2)
     myGraph.addNode(3,4)
 
-    print "Coords of node 0:",myGraph.getCoords(0)
-    print "Node index at coords (3,4):",myGraph.CoordsGetIndex(3,4)
-    print "No node at points (9,9), returns false:",myGraph.CoordsGetIndex(9,9)
+    print("Coords of node 0:",myGraph.getCoords(0))
+    print("Node index at coords (3,4):",myGraph.CoordsGetIndex(3,4))
+    print("No node at points (9,9), returns false:",myGraph.CoordsGetIndex(9,9))
 
-    print "6 RETURN LETTER"
+    print("6 RETURN LETTER")
     myGraph = graph()
     myGraph.addNode(3,4)
     myGraph.addNode(1,2)
-    print "Letter of node 0:",myGraph.getLetter(0)
-    print "Index of node 'A':",myGraph.letterGetPos("A")
+    print("Letter of node 0:",myGraph.getLetter(0))
+    print("Index of node 'A':",myGraph.letterGetPos("A"))
 
-    print "7.NUMBER OF NODES"
+    print("7.NUMBER OF NODES")
     myGraph = graph()
     myGraph.addNode(3,4)
     myGraph.addNode(1,2)
-    print myGraph.getNumNodes()
+    print(myGraph.getNumNodes())

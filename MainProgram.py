@@ -17,11 +17,11 @@ import random
 import sys
 import os
 
-import tkFileDialog
-import tkMessageBox
-from Tkinter import *
-import  ttk
-import cPickle as pickle
+from tkinter import filedialog as tkFileDialog
+from tkinter import messagebox as tkMessageBox
+from tkinter import *
+from tkinter import  ttk
+import pickle
 import operator
 import copy
 
@@ -71,7 +71,7 @@ def globalVars():
     global myLowerB
     global myCPostman
 
-    
+
     coordClicked = None #variable holding index position of clicked node
     newNode = True
     shift = False
@@ -108,16 +108,16 @@ class UndoRedo(object):
     def undo(self,event=None):
         """Undoes actions"""
         #gets graph object from undo stack
-        
+
         global myGraph
         if self.undoStack != []:
             theFile = pickle.dumps(myGraph)
             graph = pickle.loads(theFile)
             self.redoStack.append(graph)
-            
+
             clear()
             myGraph = self.undoStack.pop()
-            
+
             #redraw graph:
             for i in range(0,myGraph.getNumNodes()):
                 drawNode(i)
@@ -173,7 +173,7 @@ class Menus(Frame):
         self.parent = parent
         self.filePath = "Untitled"+FILE_EXTENSION
         parent.title(os.path.split(self.filePath)[-1][0:-len(FILE_EXTENSION)] + " - " + PROGRAM_NAME)
-        
+
         Frame.__init__(self, parent)
         self.parent = parent
         menubar = Menu(self.parent)
@@ -197,7 +197,7 @@ class Menus(Frame):
         exportMenu.add_command(label="Export Algorithm Sequence",underline=7, command=self.exportSequence)
         fileMenu.add_cascade(label="Export",underline=0, menu=exportMenu)
         fileMenu.add_separator()
-        
+
         fileMenu.add_command(label="Exit",underline=1, command=self.onExit, accelerator="Ctrl+Q")
         menubar.add_cascade(label="File", menu=fileMenu,underline=0)
 
@@ -256,7 +256,7 @@ class Menus(Frame):
         self.updateRecents()
 
     def exportSequence(self,event=None):
-  
+
         options = {}
         options['parent'] = self
         options['defaultextension'] = ".jpg"
@@ -266,7 +266,7 @@ class Menus(Frame):
                                 ("PDF",(".pdf")),
                                 ("TIFF",(".tif",".tiff")),
                                 ("PNG",(".png")) ]
-        
+
 
 
         filePath = tkFileDialog.asksaveasfilename(**options) #creates file browseR
@@ -303,8 +303,8 @@ class Menus(Frame):
                         finished = True
                 else:
                     finished = True
-                        
-                
+
+
 
 
 
@@ -320,7 +320,7 @@ class Menus(Frame):
                                 ("TIFF",(".tif","tiff")),
                                 ("PNG",(".png")) ]
 
-        
+
 
         filename = tkFileDialog.asksaveasfilename(**options) #creates file browseR
         if filename != "":
@@ -385,7 +385,7 @@ class Menus(Frame):
         minY = 9999999
         maxX = 0
         maxY = 0
-        
+
         #Draw the nodes
         for i in range(0,myGraph.getNumNodes()):
             iC = list(myGraph.getCoords(i))
@@ -411,33 +411,33 @@ class Menus(Frame):
                 draw.text((iC[0]+25,iC[1]+25),myGraph.getLetter(i),fill=colors["black"])
 
 
-            
+
             if menu.orders.get():
                 try:
                     draw.text((iC[0]+25,iC[1]-50),str(myGraph.getOrder(i)),fill=colors["black"],font=tFont)
                 except:
                     draw.text((iC[0]+25,iC[1]-50),str(myGraph.getOrder(i)),fill=colors["black"])
-                
 
-        
+
+
         for d in canvas.find_withtag("dj"):
             i =  int(canvas.gettags(d)[1][-2:])
             iC = list(myGraph.getCoords(i))
             iC[0] = iC[0]*2
             iC[1] = iC[1]*2
 
-            
+
             if canvas.gettags(d)[1][2] == "B":
                 draw.rectangle((iC[0]+50,iC[1]+50,iC[0]+200,iC[1]+125),fill=colors["white"],outline=colors["black"])
                 draw.line((iC[0]+125,iC[1]+50,iC[0]+125,iC[1]+90),fill=colors["black"])
                 draw.line((iC[0]+50,iC[1]+90,iC[0]+200,iC[1]+90),fill=colors["black"])
-                
+
             elif canvas.gettags(d)[1][2] == "O":
                 draw.text((iC[0]+85,iC[1]+57),str(myDj.getNode(i).getOrderOfLbl()),fill=colors["black"],font=tFont)
 
             elif canvas.gettags(d)[1][2] == "P":
                 draw.text((iC[0]+157,iC[1]+57),str(myDj.getNode(i).getPerminantLbl()),fill=colors["black"],font=tFont)
-                
+
             elif canvas.gettags(d)[1][2] == "T":
                 x = iC[0]+120-(len(myDj.getNode(i).getTempLbls())*9)
 
@@ -445,10 +445,10 @@ class Menus(Frame):
                 tempLbls = myDj.getNode(i).getTempLbls()
                 tempLbls = map(str,tempLbls)
                 tempLbls = "  ".join(tempLbls)
-                
+
                 draw.text((x,iC[1]+93),str( tempLbls),fill=colors["black"],font=tFont)
 
-        
+
         desc = control.myDescBox.canvas.itemcget(control.myDescBox.desc,"text")
         step = control.myDescBox.canvas.itemcget(control.myDescBox.step,"text")
         if desc != "Choose an algorithm to begin":
@@ -472,7 +472,7 @@ class Menus(Frame):
     def new(self,event=None):
         """Creates new graph"""
 
-        
+
         clear()
         unRedo.clear()
         self.filePath = "Untitled"+FILE_EXTENSION
@@ -510,7 +510,7 @@ class Menus(Frame):
             options['initialdir'] = "examples"
 
 
-        
+
         options['defaultextension'] = FILE_EXTENSION
         options['filetypes'] = [("graph files",FILE_EXTENSION)]
         self.filePath = tkFileDialog.askopenfilename(**options)
@@ -519,7 +519,7 @@ class Menus(Frame):
     def openFile(self,fileToOpen):
         """Opens the file: fileToOpen"""
         global myGraph,myMatrixView,myArcView,FILE_EXTENSION
-        
+
         if fileToOpen != "": #if cancel not pressed
 
             if "*" in root.title(): #If the graph has been changed
@@ -529,7 +529,7 @@ class Menus(Frame):
                 if answer: #"Yes"
                     self.saveFile()
 
-            
+
             try:
                 #attempt to open file
                 theFile = open(fileToOpen,'rb') #open connection
@@ -617,12 +617,12 @@ class Menus(Frame):
         if "*" in root.title(): #If the graph has been changed
             #Create alert:
             answer = tkMessageBox.askyesnocancel("Save Changes", "Do you want to save your changes to "+os.path.split(self.filePath)[-1][0:-len(FILE_EXTENSION)]+"?")
-        
+
             if answer == None: #"Cancel"
                 return
             if answer: #"Yes"
                 self.saveFile()
-        
+
         clear()
         unRedo.clear()
         self.filePath = "Untitled"+FILE_EXTENSION
@@ -684,7 +684,7 @@ class Menus(Frame):
             theFile.close()
         except:
             helpPath = "help.pdf"
-        
+
         if os.path.isfile(helpPath):
             import webbrowser
             webbrowser.open(helpPath)
@@ -702,7 +702,7 @@ class aboutDialog(Toplevel):
         self.transient(parent) #minimizes with parent
         self.grab_set() #sets focus on self
         self.title("About")
-        
+
         x = parent.winfo_rootx()
         y = parent.winfo_rooty()-40
         height = parent.winfo_height()
@@ -815,7 +815,7 @@ class prefDialog(Toplevel):
         self.transient(parent) #minimizes with parent
         self.grab_set() #sets focus on self
 
-        
+
         self.title("Preferences")
 
         x = parent.winfo_rootx()
@@ -839,7 +839,7 @@ class prefDialog(Toplevel):
         except:
             self.helpPath.set("help.pdf")
             self.examplesPath.set("/examples")
-            
+
         #Examples folder
         l2 = Label(self,text="Examples folder:")
         l2.grid(row=1, column=0,sticky="W")
@@ -900,11 +900,11 @@ class prefDialog(Toplevel):
             data[0] = "/examples"
         if data[1] == "":
             data[1] = "help.pdf"
-        
+
         pickle.dump(data,theFile)
         theFile.close()
 
-        
+
         self.destroy()
 
 
@@ -960,7 +960,7 @@ class controls:
 
         self.timer = None
 
-        
+
 
     def slideSnap(self,x=None):
         self.scaleVar.set(round(self.scaleVar.get()))
@@ -1062,10 +1062,10 @@ class descBox(Frame):
             self.canvas.itemconfig(self.step,fill="red")
         else:
             self.canvas.itemconfig(self.step,fill="black")
-            
+
         self.canvas.itemconfig(self.desc,text=desc)
 
-        
+
 
 
 
@@ -1145,7 +1145,7 @@ def updateStatus(event):
     else:
         bar.setText("For help, press F1")
         bar.setOrder("")
-        
+
 
 
 def addCoords(event,y=None):
@@ -1160,13 +1160,13 @@ def addCoords(event,y=None):
         x = event.x
         y = event.y
 
-    
+
     if myGraph.getNumNodes() == 0:
         global menu
         menu.onEdit()
 
     if coordClicked != None:
-    
+
         node1 = myGraph.getCoords(coordClicked)
         if shift or abs(x-node1[0])<20 or abs(y-node1[1])<20:
             if abs(x-node1[0]) < abs(y-node1[1]):
@@ -1178,7 +1178,7 @@ def addCoords(event,y=None):
     else:
         myGraph.addNode(x,y) #adds to graph object
 
-    
+
     reset() #Clears all algorithms
     drawNode(myGraph.getNumNodes()-1) #draws the node
     coordClicked = myGraph.getNumNodes()-1 #sets node as clicked
@@ -1187,7 +1187,7 @@ def nodeMove(event):
     """moves node if selected"""
     global coordClicked,myGraph,newNode,shift
     if coordClicked != None: #if a node is selected
-        
+
         if newNode == False:
             snapX = event.x
             snapY = event.y
@@ -1216,9 +1216,9 @@ def addArc(event):
     global coordClicked,myGraph,tempArcs,connected,newNode,shift
     if coordClicked != None and newNode: #if a node is selected
         #print shift
-            
+
         node1 = myGraph.getCoords(coordClicked)
-            
+
         if tempArcs == []:
             #if there is no temp arc, create one
             tempArcs[0] = canvas.create_line(node1[0],node1[1],event.x,event.y)
@@ -1229,7 +1229,7 @@ def addArc(event):
 
             theNode = nodeOver(myGraph,event.x,event.y)
             if theNode == None or theNode == coordClicked: #Stops self-loops TEMP
-                
+
                 if shift or abs(event.x-node1[0])<20 or abs(event.y-node1[1])<20:
                     #Snaps if close to vert/horz or if shift key pressed
                     for i in tempArcs:
@@ -1277,7 +1277,7 @@ def mouseUp(event):
     Handles the event when the mouse button is relesed
     """
     global tempArcs,connected,coordClicked,myGraph,myMatrixView,myArcView,newNode
-    
+
     newNode = True
     #Removes the tempArcs
     for i in tempArcs:
@@ -1297,7 +1297,7 @@ def mouseUp(event):
                 while randWeight == myGraph.getArc(connected,coordClicked ):
                     randWeight = random.randint(1,10)
                 myGraph.setArc(coordClicked,connected,randWeight,True)
-                
+
             drawArc(coordClicked,connected)
             textBox = "w" + "%02d" % (coordClicked) + "%02d" % (connected)
             canvas.focus(textBox)
@@ -1308,7 +1308,7 @@ def mouseUp(event):
             prev = coordClicked
             if coordClicked!=None:
                 addCoords(event)
-                
+
                 myGraph.setArc(prev,myGraph.getNumNodes()-1,randomW)
                 drawArc(prev,myGraph.getNumNodes()-1)
                 textBox = "w" + "%02d" % (prev) + "%02d" % (myGraph.getNumNodes()-1)
@@ -1321,7 +1321,7 @@ def mouseUp(event):
     myMatrixView.update()
     myArcView.update()
     control.selectChange()
-    
+
 def drawNode(pos):
     """
     Draws the graphical represantation of the node pos, in the graph object
@@ -1363,7 +1363,7 @@ def drawNode(pos):
             canvas.itemconfig("l"+strPos,font="Times 10 underline bold")
         else:
             canvas.itemconfig("l"+strPos,font="Times 10 normal")
-           
+
         canvas.coords("o"+strPos,coord[0]+20, coord[1]-20)
         canvas.itemconfig("o"+strPos,text=str(myGraph.getOrder(pos)))
         canvas.lift("o"+strPos)
@@ -1371,7 +1371,7 @@ def drawNode(pos):
             canvas.itemconfig("o"+strPos,state=HIDDEN)
         else:
             canvas.itemconfig("o"+strPos,state=NORMAL)
-            
+
         canvas.itemconfig("l"+strPos,text=letter)
 
     #Change colour for start and end nodes
@@ -1420,7 +1420,7 @@ def drawArc(n1,n2):
     node2 = myGraph.getCoords(n2)
     midx = (node1[0]+node2[0])/2
     midy = (node1[1]+node2[1])/2
-    
+
     if myGraph.getArc(n1,n2) == None:
         return
 
@@ -1438,7 +1438,7 @@ def drawArc(n1,n2):
         canvas.delete("w"+strN1+strN2)
         canvas.delete("b"+strN1+strN2)
 
-        
+
         weight = myGraph.getArc(n1,n2) #gets weight
         canvas.create_line(node1[0],node1[1],node2[0],node2[1],tags=("a",("a"+strN1+strN2)),**aOpt)
         canvas.create_rectangle(midx-20,midy,midx+20,midy+20, tags=("b","b"+strN1+strN2),**bOpt)
@@ -1455,7 +1455,7 @@ def drawArc(n1,n2):
             canvas.coords("b"+strN1+strN2,midx-20, midy+20,midx+20,midy+40)
             canvas.coords("w"+strN1+strN2,midx, midy+30)"""
 
-            
+
     elif myGraph.getArc(n2,n1)!= None and myGraph.getArc(n1,n2) != None:
         #if ------MULTIPLE ARC------
         #delete existing arcs
@@ -1582,7 +1582,7 @@ def calcGrad(x1,y1,x2,y2):
     except:
         return 1
 
-    
+
 def calcNormal(x1,y1,x2,y2):
     L=50
     if y1==y2:
@@ -1615,7 +1615,7 @@ def drawCurve(x1,y1,x2,y2,up,options={}):
     if y1 == y2:
         if up:
             up = False
-        
+
     midX,midY,height,width = calcNormal(x1,y1,x2,y2)
 
     if up:
@@ -1643,16 +1643,16 @@ def delNode(n1=None):
         global coordClicked
     else:
         coordClicked = n1
-                                 
+
     reset()
     neigh = myGraph.neighbors(coordClicked)
-    
+
     #deletes any arc lines connected to the deleted node
 
     strCoordClicked = "%02d" % (coordClicked)
-    
 
-    
+
+
     for n in neigh:
         strN = "%02d" % (n)
         canvas.delete("a"+strCoordClicked+strN)
@@ -1691,7 +1691,7 @@ def delNode(n1=None):
     for arc in canvas.find_withtag("a"):
         theArc = canvas.gettags(arc)[1]
         new = theArc[1:]
-        if int(new[0:2]) > coordClicked: 
+        if int(new[0:2]) > coordClicked:
             new = ("%02d" % (int(new[0:2])-1))+new[2:4]
         if int(new[2:4]) > coordClicked:
             new = new[0:2]+("%02d" % (int(new[2:4])-1))
@@ -1724,7 +1724,7 @@ def delArc(n1,n2,both=False):
 
     srtN1 = "%02d" % (n1)
     srtN2 = "%02d" % (n2)
-    
+
     myGraph.delArc(n1,n2)#change matrix
     #remove GUI elements
     canvas.delete("a"+srtN1+srtN2)
@@ -1804,7 +1804,7 @@ def weightKeypress(event,textBox):
             canvas.insert(textBox, "insert", event.char)
             current = myGraph.getArc(nodes[0],nodes[1])
         elif len(canvas.itemcget(textBox,"text").split(".")[0])<3 and  len(canvas.itemcget(textBox,"text").split(".")[-1])<3:
-            
+
             #append a digit (limited to 2 digit numbers)
             if event.char != "." or (event.char == "." and "." not in canvas.itemcget(textBox,"text")):
                 canvas.insert(textBox, "insert", event.char)
@@ -1824,9 +1824,9 @@ def weightKeypress(event,textBox):
 
 def labelKeypress(event,textBox):
     node = int(canvas.gettags(textBox)[1][1:])
-    
+
     insert = canvas.index(textBox, INSERT) #gets cursor index
-    
+
     if event.char.isalpha() and not myGraph.isUserNode(event.char): #accept letters only
         if canvas.tk.call(canvas._w, 'select', 'item'):
             #if selected replace contents
@@ -1845,11 +1845,11 @@ def labelKeypress(event,textBox):
         canvas.dchars(textBox, SEL_FIRST, SEL_LAST)
         canvas.select_clear()
 
-    
+
     for i in range(0,myGraph.getNumNodes()):
         drawNode(i)
 
-    
+
 
 def labelDeselected(clear=True):
     """
@@ -1857,19 +1857,19 @@ def labelDeselected(clear=True):
     also removes arc if set to 0 or blank
     """
     textBox = canvas.focus()
-    
+
     if textBox != "":
 
         value =  canvas.itemcget(textBox,"text")
 
         if not canvas.gettags(textBox)[0] == "l":
             #if an arc weight
-        
+
             nodes = (int(canvas.gettags(textBox)[1][1:3]),
                      int(canvas.gettags(textBox)[1][3:]))
 
-            
-            
+
+
             if value not in ["","0"]:
                 if "." in value:
                     try:
@@ -1887,7 +1887,7 @@ def labelDeselected(clear=True):
                                 first = False
                         canvas.itemconfig(textBox,text=newValue)
                         control.myDescBox.setText("ERROR","Invalid decimal "+value+". Has been corrected")
-                        
+
                 else:
                     value = int(value)
                 if myGraph.getArc(nodes[0],nodes[1])== myGraph.getArc(nodes[1],nodes[0]):
@@ -2089,7 +2089,7 @@ def drawDj(node=None):
 
 
         strNode = "%02d" % (node)
-        
+
         if canvas.find_withtag("djB"+strNode) == (): #if box doesnt exist:
             #draw box
             canvas.create_rectangle(coords[0],coords[1],coords[0]+BOXWIDTH,coords[1]+BOXHEIGHT,fill="white",tags=("dj","djB"+strNode))
@@ -2122,7 +2122,7 @@ def doCPostman():
         myCPostman = cPostman(myGraph)
 
     cpResult= myCPostman.nextStep()
-    
+
     if cpResult == None:
         myCPostman=None
         resetCols(graph)
@@ -2313,14 +2313,14 @@ def reset(event=None):
     control.selectChange()
     myMatrixView.clearPrim()
     resetColsOnly(myGraph) #resets arc and node colours
-    
+
 
 def clear(event=None):
     """clears canvas"""
     global myGraph
     global canvas
     global myKruskal,myPrim,myMatrixView,myArcView
-    
+
     reset()
     myGraph = graph()
 
@@ -2382,7 +2382,7 @@ def arcCol(graph,n1,n2,col,state=NORMAL):
 
     srtN1 = "%02d" % (n1)
     srtN2 = "%02d" % (n2)
-    
+
     #as bidirectional arcs are treated as one, arc colour is changed for both
     canvas.itemconfig("a"+srtN1+srtN2,fill=col,width=3,state=state)
     canvas.itemconfig("a"+srtN2+srtN1,fill=col,width=3,state=state)
@@ -2480,7 +2480,7 @@ def tab(event=None):
     canvas.focus(new)
     canvas.select_from(canvas.focus(), 0)
     canvas.select_to(canvas.focus(), len(canvas.itemcget(canvas.focus(),"text"))-1)
-    
+
 
 #adds event bindings
 canvas.bind("<Button-1>", mouseClick)

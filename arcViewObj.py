@@ -1,4 +1,4 @@
-from Tkinter import *
+from tkinter import *
 from matrixViewObj import *
 
 class arcView(matrixView):
@@ -8,7 +8,7 @@ class arcView(matrixView):
     AB  10
     AC  9
     CB  8
-    
+
     Inherits from matrixView
     """
     def __init__(self,parent,parentCanvas,graph,visibility):
@@ -20,27 +20,27 @@ class arcView(matrixView):
             self.visible.set(True)
         else:
             self.visible.set(False)
-            
-        
+
+
         self.arcCanvas = Canvas(parent,bg="grey",width=100,height=100)
         parentCanvas.create_window(parentCanvas.winfo_width(),parentCanvas.winfo_height(),anchor=SE,window=self.arcCanvas,tag=self.canvasTag)
         parentCanvas.itemconfigure(self.canvasTag,state=visibility)
         self.arcCanvas.bind("<Button-1>", self.mouseClick)
         self.update()
-        
+
     def resize(self,event=None):
         """Moves the arc view when the window is resized"""
         self.parentCanvas.coords(self.canvasTag,self.parentCanvas.winfo_width(),self.parentCanvas.winfo_height())
-        
+
     def update(self,graph=None):
         """Refreshes the arcs"""
         global canvas
         if graph != None:
             self.graph = graph
-            
+
         self.arcCanvas.delete(ALL) #Clears canvas
         self.arcCanvas.create_text(50,20,text="Arcs") #title
-        
+
         #get list of sorted arcs
         sortedArcs = []
         sortedArcsOrig =  sorted(self.graph.arcs())
@@ -64,4 +64,4 @@ class arcView(matrixView):
             if arcColor == "":
                 arcColor = self.parentCanvas.itemcget("a"+"%02d" % (arc[1][1])+"%02d" % (arc[1][0]), "fill")
             self.arcCanvas.create_text(50,(i+2)*20,text=arcString,tag=arcTag,fill=arcColor)
- 
+

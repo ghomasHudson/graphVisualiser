@@ -1,8 +1,8 @@
 import random
-import tkMessageBox
+from tkinter import messagebox as tkMessageBox
 import operator
 from primObj import *
-import cPickle as pickle
+import pickle
 
 
 
