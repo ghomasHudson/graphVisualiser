@@ -18,4 +18,5 @@ Simple interactive Python tool for creating and running algorithms on networks. 
 ## Installation
 
 Clone the repo then run:
-`python2 MainProgram.py`
+
+`python MainProgram.py`
