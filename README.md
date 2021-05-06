@@ -1,6 +1,8 @@
 # graphVisualiser
-Simple interactive Python tool for creating and running algorithms on networks. 
-Designed as an educational tool to support the learning of graph theory.
+Simple interactive Python tool for creating and running algorithms on networks. Designed as an educational tool to support the learning of graph theory.
+
+![graphtool](https://user-images.githubusercontent.com/13795113/117274815-57988a80-ae55-11eb-9d61-332e705c902d.gif)
+
 ## Features
 - Loading/Saving graphs
 - Intuative drag-and-drop interface
@@ -18,4 +20,5 @@ Designed as an educational tool to support the learning of graph theory.
 ## Installation
 
 Clone the repo then run:
-`python2 MainProgram.py`
+
+`python MainProgram.py`
