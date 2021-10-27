@@ -22,3 +22,5 @@ Simple interactive Python tool for creating and running algorithms on networks. 
 Clone the repo then run:
 
 `python MainProgram.py`
+
+(Note: Requires Tkinter for the GUI: `pip install tk`)
